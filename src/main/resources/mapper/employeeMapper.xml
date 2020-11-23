@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.demo.emprepository.EmpRepositoryInterface">
+
+<resultMap type="com.employee.demo.entity.Employee" id="empResultMapper">
+
+<result property="empId" column="empId"/>
+<result property="firstName" column="firstName"/>
+<result property="lastName" column="lastName"/>
+<result property="hireDate" column="hireDate"/>
+<result property="city" column="city"/>
+<result property="email" column="email"/>
+<result property="phoneNo" column="phoneNo"/>
+
+</resultMap>
+
+<select id="getAllEmployees" resultMap="empResultMapper"> 
+
+	SELECT * FROM employees
+
+</select>
+
+<select id="getEmployeeById" resultMap="empResultMapper">
+	select * from employees where empId=#{empId}
+</select>
+
+<delete id="deleteEmp" parameterType='long'>
+	delete from employees where empId=#{empId}
+</delete>
+
+<update id="updateEmployeeDetails" parameterType='Employee'>
+	update employees 
+	set 
+	firstName=#{employee.firstName},
+	lastName=#{employee.lastName}, 
+	hireDate=#{employee.hireDate}, 
+	city=#{employee.city}, 
+	email=#{employee.email}, 
+	phoneNo=#{employee.phoneNo} 
+	where empId=#{Id.empId}
+</update>
+
+<update id="updateEmployee" parameterType='Employee'>
+	update employees 
+	set 
+	firstName=#{employee.firstName},
+	lastName=#{employee.lastName}, 
+	hireDate=#{employee.hireDate}, 
+	city=#{employee.city}, 
+	email=#{employee.email}, 
+	phoneNo=#{employee.phoneNo} 
+	where empId=#{Id.empId}
+</update>
+
+<insert id="createEmployee" parameterType='Employee'>
+
+	insert into employees (empId,firstName, lastName, hireDate, city, email, phoneNo) 
+	values (#{empId},#{firstName},#{lastName},#{hireDate},#{city},#{email},#{phoneNo})
+
+</insert>
+
+<insert id="addEmployee">
+	insert into employees (empId,firstName, lastName, hireDate, city, email, phoneNo) values (#{empId},#{firstName},#{lastName},#{hireDate},#{city},#{email},#{phoneNo})
+	insert into skills (skillId, skillName, details,empId) values(#{skillId},#{skillName},#{details},#{empId})
+</insert>
+</mapper>

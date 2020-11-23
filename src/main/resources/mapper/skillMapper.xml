@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.demo.emprepository.SkillRepositoryInterface">
+
+<resultMap type="com.employee.demo.entity.Skill" id="skillResultMapper">
+<result property="skillId" column="skillId"/>
+<result property="skillName" column="skillName"/>
+<result property="details" column="details"/>
+<result property="empId" column="empId"/>
+</resultMap>
+
+<select id="getAllSkills" resultMap="skillResultMapper">
+	select * from skills
+</select>
+
+<select id="findSkillById" resultMap="skillResultMapper">
+	select * from skills where skillId=#{skillId}
+</select>
+
+<select id="getSkillByempId" resultMap="skillResultMapper">
+	select * from skills where empId=#{empId}
+</select>
+
+<insert id="addSkillDetails" parameterType='Skill'>
+	insert into skills (skillId, skillName, details, empId)
+	values (#{skillId}, #{skillName}, #{details}, #{empId})
+</insert>
+
+<delete id="deleteSkillDetails" parameterType='long'>
+	delete from skills where empId=#{empId}
+</delete>
+
+<update id="updateSkill" parameterType='Skill'>
+	update skills
+	set
+	skillId=#{skillId},
+	skillName=#{skillName},
+	details=#{details}
+	where
+	empId=#{empId}
+</update>
+
+</mapper>

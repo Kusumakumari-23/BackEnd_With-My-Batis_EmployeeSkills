@@ -1,0 +1,393 @@
+#---
+#swagger: "2.0"
+#info:
+#  description: Employee and Skill details Swagger documentation.
+#  version: 1.0.0
+#  title: Employee and Skills Documentation
+#  termsOfService: http://swagger.io/terms/
+#  contact:
+#    email: apiteam@swagger.io
+#  license:
+#    name: Apache 2.0
+#    url: http://www.apache.org/licenses/LICENSE-2.0.html
+#host: localhost:8090
+#tags:
+#- name: emp
+#  description: employee methods
+#  externalDocs:
+#    description: Find out more
+#    url: http://swagger.io
+#- name: skill
+#  description: skill methods
+#  externalDocs:
+#    description: Find out more about our store
+#    url: http://swagger.io
+#schemes:
+#- https
+#- http
+#paths:
+#  /empdata/createEmp:
+#    post:
+#      tags:
+#      - emp
+#      summary: Add a new employee to database
+#      description: creates new employee
+#      operationId: createEmployee
+#      consumes:
+#      - application/json
+#      parameters:
+#      - in: body
+#        name: employee
+#        description: employee object that needs to be added to data base
+#        required: true
+#        schema:
+#          $ref: '#/definitions/Employee'
+#      responses:
+#        "200":
+#          description: Inserted Suuccesfully
+#        "405":
+#          description: Invalid input
+#        "500":
+#          description: Internal Server Error
+#  /empdata/emp/updateEmployee:
+#    put:
+#      tags:
+#      - emp
+#      summary: Update an existing employee
+#      description: Updating employee based on object
+#      operationId: updateEmployeeDetails
+#      consumes:
+#      - application/json
+#      produces:
+#      - application/json
+#      parameters:
+#      - in: body
+#        name: employee
+#        description: employee object needs to update in database
+#        required: true
+#        schema:
+#          $ref: '#/definitions/Employee'
+#      responses:
+#        "200":
+#          description: Updated Successfully
+#        "400":
+#          description: Invalid object supplied
+#        "404":
+#          description: Employee not found
+#        "405":
+#          description: Validation exception
+#  /empdata/employeeById/{empId}:
+#    get:
+#      tags:
+#      - emp
+#      summary: Finds employee by Id
+#      description: returns a single employee
+#      operationId: getEmployeeById
+#      produces:
+#      - application/json
+#      parameters:
+#      - name: empId
+#        in: path
+#        description: Id of employee to return an individual employee
+#        required: true
+#        type: integer
+#        format: "int64, signed 64 bit"
+#      responses:
+#        "200":
+#          description: successful operation
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/Employee'
+#        "400":
+#          description: Invalid status value
+#  /empdata/updateEmp/{empId}:
+#    put:
+#      tags:
+#      - emp
+#      summary: update employee by empId
+#      description: employee update by empId
+#      operationId: updateEmployee
+#      consumes:
+#      - application/json
+#      parameters:
+#      - name: empId
+#        in: path
+#        description: update by empId
+#        required: true
+#        type: integer
+#      - in: body
+#        name: employee
+#        description: employee object needs to update in database
+#        required: true
+#        schema:
+#          $ref: '#/definitions/Employee'
+#      responses:
+#        "200":
+#          description: successful operation
+#        "400":
+#          description: Invalid tag value
+#  /empdata/emp/getemployees:
+#    get:
+#      tags:
+#      - emp
+#      summary: get details of all employees
+#      description: Returns list of employees
+#      operationId: getAllEmployees
+#      produces:
+#      - application/json
+#      parameters: []
+#      responses:
+#        "200":
+#          description: successful operation
+#        "404":
+#          description: Employee not found
+#        "500":
+#          description: Internal Server Error
+#  /empdata/employee/deleteById/{empId}:
+#    delete:
+#      tags:
+#      - emp
+#      summary: Deletes both employee and skill
+#      description: deletes both data
+#      operationId: deleteEmployeeDetails
+#      parameters:
+#      - name: empId
+#        in: path
+#        description: employee id to delete
+#        required: true
+#        type: integer
+#        format: int64
+#      responses:
+#        "200":
+#          description: successful operation
+#        "400":
+#          description: Invalid ID supplied
+#        "404":
+#          description: employee not found
+#  /empdata/empOnly/deleteById/{empId}:
+#    delete:
+#      tags:
+#      - emp
+#      summary: Deletes employee details
+#      description: deletes employee based on empId
+#      operationId: deleteEmp
+#      parameters:
+#      - name: empId
+#        in: path
+#        description: employee id to delete
+#        required: true
+#        type: integer
+#        format: int64
+#      responses:
+#        "200":
+#          description: successful operation
+#        "400":
+#          description: Invalid ID supplied
+#        "404":
+#          description: employee not found
+#  /empdata/emp/addemployee:
+#    post:
+#      tags:
+#      - emp
+#      summary: inserting both employee and skill together
+#      description: inserting both together
+#      operationId: addEmployee
+#      consumes:
+#      - application/json
+#      parameters:
+#      - in: body
+#        name: employee
+#        description: employee object that needs to be added to data base
+#        required: true
+#        schema:
+#          $ref: '#/definitions/Employee'
+#      responses:
+#        "200":
+#          description: successful operation
+#          schema:
+#            $ref: '#/definitions/Employee'
+#  /empdata/createSkills:
+#    post:
+#      tags:
+#      - skill
+#      summary: Add a new skill to database
+#      description: creates new skill
+#      operationId: createSkills
+#      consumes:
+#      - application/json
+#      parameters:
+#      - in: body
+#        name: skill
+#        description: skill object that needs to be added to data base
+#        required: true
+#        schema:
+#          $ref: '#/definitions/Skill'
+#      responses:
+#        "200":
+#          description: Successfull insertion
+#        "405":
+#          description: Invalid input
+#        "500":
+#          description: Internal Server Error
+#  /empdata/skills/skillsById/{skillId}:
+#    get:
+#      tags:
+#      - skill
+#      summary: Finds skill by skill Id
+#      description: returns a single skill details
+#      operationId: getSkillById
+#      produces:
+#      - application/json
+#      parameters:
+#      - name: skillId
+#        in: path
+#        description: Id of skills to return an individual skill details
+#        required: true
+#        type: integer
+#        format: "int64, signed 64 bit"
+#      responses:
+#        "200":
+#          description: successful operation
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/Skill'
+#        "400":
+#          description: Invalid status value
+#  /empdata/skillsByempId/{empId}:
+#    get:
+#      tags:
+#      - skill
+#      summary: Finds skill by employee Id
+#      description: returns a single skill details
+#      operationId: getSkillByempId
+#      produces:
+#      - application/json
+#      parameters:
+#      - name: empId
+#        in: path
+#        description: get skill details based on employee Id
+#        required: true
+#        type: integer
+#        format: "int64, signed 64 bit"
+#      responses:
+#        "200":
+#          description: successful operation
+#          schema:
+#            type: array
+#            items:
+#              $ref: '#/definitions/Skill'
+#        "400":
+#          description: Invalid status value
+#  /empdata/skill/deleteById/{skillId}:
+#    delete:
+#      tags:
+#      - skill
+#      summary: Delete skill details by Id
+#      description: delete skill details
+#      operationId: deleteSkillDetails
+#      parameters:
+#      - name: skillId
+#        in: path
+#        description: skill Id od the skills that needs to be deleted
+#        required: true
+#        type: integer
+#        minimum: 1
+#        format: int64
+#      responses:
+#        "400":
+#          description: Invalid ID supplied
+#        "404":
+#          description: employee not found
+#  /empdata/skills/getskills:
+#    get:
+#      tags:
+#      - skill
+#      summary: get details of all skills
+#      description: Returns list of skills
+#      operationId: getAllSkills
+#      produces:
+#      - application/json
+#      parameters: []
+#      responses:
+#        "200":
+#          description: successful operation
+#        "404":
+#          description: skill not found
+#        "500":
+#          description: Internal Server Error
+#  /empdata/updateSkill/{empId}:
+#    put:
+#      tags:
+#      - skill
+#      summary: update skill by empId
+#      description: skill update by empId
+#      operationId: updateSkill
+#      consumes:
+#      - application/json
+#      parameters:
+#      - name: empId
+#        in: path
+#        description: update by empId
+#        required: true
+#        type: integer
+#      - in: body
+#        name: skill
+#        description: skill object needs to update in database
+#        required: true
+#        schema:
+#          $ref: '#/definitions/Skill'
+#      responses:
+#        "200":
+#          description: successful operation
+#        "400":
+#          description: Invalid tag value
+#definitions:
+#  Employee:
+#    type: object
+#    properties:
+#      empId:
+#        type: integer
+#        format: int64
+#      firstName:
+#        type: string
+#        description: first Name of employee
+#      lastName:
+#        type: string
+#        description: last Name of employee
+#      hireDate:
+#        type: string
+#        format: date
+#      city:
+#        type: string
+#        description: location details
+#      email:
+#        type: string
+#        description: email of employee
+#      phoneNo:
+#        type: string
+#        description: contact details
+#      skills:
+#        type: object
+#        description: Skill object
+#        properties: {}
+#    xml:
+#      name: employee
+#  Skill:
+#    type: object
+#    properties:
+#      skillId:
+#        type: integer
+#        format: int64
+#      skillName:
+#        type: string
+#        description: name of the skill
+#      details:
+#        type: string
+#        description: details of skill
+#      empId:
+#        type: integer
+#        format: int64
+#    xml:
+#      name: skill

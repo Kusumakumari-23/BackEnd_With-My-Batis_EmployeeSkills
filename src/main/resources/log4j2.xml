@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%d{YYYY-MM-DD'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="APP_ROOT">F:/Delta/EmployeeSills/log4j2</Property>
+    </Properties>
+    
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+ 
+        <RollingFile name="fileLog"
+        
+            fileName="${APP_ROOT}/app.log"
+            filePattern="${APP_ROOT}/app-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            
+            <Policies>
+            	<TimeBasedTriggeringPolicy interval = "1" modulate= "true"/>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            
+            <DefaultRolloverStrategy max="1" />
+        </RollingFile>
+ 
+    </Appenders>
+    <Loggers>
+ 
+        <Logger name="com.employee.demo" additivity="false">
+            <AppenderRef ref="fileLog" />
+            <AppenderRef ref="Console" />
+        </Logger>
+ 
+        <Root level="error">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="fileLog" />
+        </Root>
+        
+        
+        <Logger name="com.employee.demo.empcontroller" additivity="false">
+            <AppenderRef ref="fileLog" />
+            <AppenderRef ref="Console" />
+        </Logger>
+ 
+        <Root level="debug">
+        	<AppenderRef ref="fileLog" />
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+    
+</Configuration>
